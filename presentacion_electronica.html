@@ -130,7 +130,9 @@
       font-size: 22px; font-weight: 400; color: var(--text-muted);
       margin-top: 14px; line-height: 1.5;
     }
-    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; flex: 1; min-height: 0; }
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; flex: 1; min-height: 0; overflow: hidden; }
+    /* Slide 10 — card derecha con scroll */
+    #s10 .card-scroll { overflow-y: auto; height: 100%; max-height: 660px; }
     .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; flex: 1; min-height: 0; }
 
     /* ── CARDS ────────────────────────────────────── */
@@ -728,15 +730,15 @@
                style="max-height:580px; max-width:100%; object-fit:contain; border-radius:var(--r-lg);">
         </div>
 
-        <div class="card">
+        <div class="card card-scroll">
           <h3 class="card-t">Curva de Carga y Descarga</h3>
           <!-- Símbolo condensador grande -->
           <div style="display:flex; justify-content:center; background:var(--bg-s2); border-radius:var(--r-md); padding:16px;">
-            <img src="media/image5.png" alt="Símbolo condensador" style="height:160px; object-fit:contain;">
+            <img src="media/image5.png" alt="Símbolo condensador" style="height:130px; object-fit:contain;">
           </div>
           <div style="display:flex; justify-content:center; background:var(--bg-s2); border-radius:var(--r-lg); padding:16px; overflow:hidden;">
             <img src="media/image9.png" alt="Curva carga condensador"
-                 style="max-height:300px; object-fit:contain;">
+                 style="max-height:220px; object-fit:contain;">
           </div>
           <p class="card-p">
             <strong>Se cargan</strong> exponencialmente hasta igualar el voltaje de la fuente.<br>
@@ -745,6 +747,63 @@
           </p>
           <div class="alert alert-warn">
             ⚠️ Conectar un condensador electrolítico al revés puede dañarlo o hacerlo explotar.
+          </div>
+
+          <!-- ── CONSTANTE DE TIEMPO ─────────────────── -->
+          <div style="border-top: 2px solid var(--bg-s2); padding-top: 20px;">
+            <h3 class="card-t" style="border-bottom:none; padding-bottom:0; font-size:24px;">⏱️ Constante de Tiempo (τ)</h3>
+            <p class="card-p" style="margin-top:12px;">
+              La <strong>constante de tiempo τ (tau)</strong> indica qué tan rápido se carga un condensador:
+            </p>
+            <div style="display:flex; justify-content:center; background:var(--bg-s2); border-radius:var(--r-md); padding:18px 24px; margin-top:12px;">
+              <span style="font-family:var(--font-d); font-size:32px; font-weight:900; color:var(--primary-dk); letter-spacing:1px;">
+                τ = R × C
+              </span>
+            </div>
+            <p class="card-p" style="margin-top:12px; font-size:17px;">
+              Donde <strong>R</strong> es la resistencia en ohmios (Ω) y <strong>C</strong> la capacitancia en faradios (F).<br>
+              <em>Ejemplo: R = 10 kΩ, C = 100 μF → τ = 10 000 × 0,0001 = <strong>1 segundo</strong></em>
+            </p>
+            <!-- Tabla de carga por tau -->
+            <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:17px;">
+              <thead>
+                <tr style="background:var(--primary); color:#fff;">
+                  <th style="padding:10px 14px; border-radius:8px 0 0 0; text-align:center;">Tiempo</th>
+                  <th style="padding:10px 14px; text-align:center;">Carga del condensador</th>
+                  <th style="padding:10px 14px; border-radius:0 8px 0 0; text-align:center;">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:#fff;">
+                  <td style="padding:9px 14px; text-align:center; font-weight:700;">1τ</td>
+                  <td style="padding:9px 14px; text-align:center;">63 %</td>
+                  <td style="padding:9px 14px; text-align:center; color:var(--text-muted);">Parcial</td>
+                </tr>
+                <tr style="background:var(--bg-s2);">
+                  <td style="padding:9px 14px; text-align:center; font-weight:700;">2τ</td>
+                  <td style="padding:9px 14px; text-align:center;">86 %</td>
+                  <td style="padding:9px 14px; text-align:center; color:var(--text-muted);">Parcial</td>
+                </tr>
+                <tr style="background:#fff;">
+                  <td style="padding:9px 14px; text-align:center; font-weight:700;">3τ</td>
+                  <td style="padding:9px 14px; text-align:center;">95 %</td>
+                  <td style="padding:9px 14px; text-align:center; color:#065f46;">Casi lleno</td>
+                </tr>
+                <tr style="background:var(--bg-s2);">
+                  <td style="padding:9px 14px; text-align:center; font-weight:700;">4τ</td>
+                  <td style="padding:9px 14px; text-align:center;">98 %</td>
+                  <td style="padding:9px 14px; text-align:center; color:#065f46;">Casi lleno</td>
+                </tr>
+                <tr style="background:#fff;">
+                  <td style="padding:9px 14px; border-radius:0 0 0 8px; text-align:center; font-weight:700;">5τ</td>
+                  <td style="padding:9px 14px; text-align:center;">99.3 %</td>
+                  <td style="padding:9px 14px; border-radius:0 0 8px 0; text-align:center; color:var(--primary-dk); font-weight:700;">✅ Lleno</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-info" style="margin-top:14px;">
+              💡 A los <strong>5τ</strong> se considera que el condensador está completamente cargado.
+            </div>
           </div>
         </div>
       </div>
